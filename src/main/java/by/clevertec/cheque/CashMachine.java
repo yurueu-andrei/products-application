@@ -38,12 +38,12 @@ public class CashMachine {
                 Long cardId = Long.valueOf(args[args.length - 1].split("-")[1]);
                 if (dataStorage.getCardNumbers().contains(cardId)) {
                     discount += total * 0.05;
-                    printer.printFooter(total, discount);
                 } else {
                     printer.printFooter(total, discount);
                     throw new IllegalArgumentException("The card does not exist. Use actual card");
                 }
             }
+            printer.printFooter(total, discount);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
