@@ -14,7 +14,7 @@ public class FileManager {
         try {
             result = Files.readString(Path.of(fileName)).split(" ");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Cannot read arguments. File name should be \"arguments.txt\"");
         }
         return result;
     }
@@ -35,7 +35,7 @@ public class FileManager {
             OutputStream outputStream = new FileOutputStream("cheque.txt", true);
             outputStream.write((string + "\n").getBytes());
         } catch (IOException e) {
-            System.out.println();
+            System.out.println("Cannot write line to file");
         }
     }
 }
