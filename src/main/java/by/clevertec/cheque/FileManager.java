@@ -20,17 +20,11 @@ public class FileManager {
     }
 
     public void writeChequeToFile(List<String> strings) {
-        try (OutputStream outStream = new FileOutputStream("cheque.txt", true)) {
+        try {
             if (!Files.exists(Path.of("cheque.txt"))) {
                 Files.createFile(Path.of("cheque.txt"));
             }
-            strings.forEach(string -> {
-                try {
-                    outStream.write((string + "\n").getBytes());
-                } catch (IOException e) {
-                    System.out.println("Cannot write cheque");
-                }
-            });
+            strings.forEach(this::writeItemToFile);
         } catch (IOException e) {
             System.out.println("Cannot open file with name: cheque.txt");
         }
