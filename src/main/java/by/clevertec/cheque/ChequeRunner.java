@@ -3,8 +3,9 @@ package by.clevertec.cheque;
 public class ChequeRunner {
     public static void main(String[] args) {
         DataStorage dataStorage = new DataStorage();
-        Printer printer = new Printer();
+        FileManager fileManager = new FileManager();
+        Printer printer = new Printer(fileManager);
         CashMachine cashMachine = new CashMachine(dataStorage, printer);
-        cashMachine.printCheque(args);
+        cashMachine.printCheque(fileManager.readArgumentsFromFile(args[0]));
     }
 }
