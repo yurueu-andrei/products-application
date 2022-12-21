@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="4" author="andrei.yurueu1@gmail.com" context="test_data">
+        <comment>Fill the table "discount_cards" with test data</comment>
+        <sql>
+            WITH series AS (
+                SELECT GENERATE_SERIES(1, 100) sery
+            ),
+                 count_series AS (
+                     SELECT COUNT(*) AS quantity
+                     FROM series
+                 )
+            INSERT
+            INTO discount_cards(discount)
+            SELECT CASE
+                       WHEN s.sery % 5 = 0 THEN 7
+                       WHEN s.sery % 4 = 0 THEN 5
+                       WHEN s.sery % 3 = 0 THEN 4
+                       WHEN s.sery % 2 = 0 THEN 3
+                       ELSE 10
+                       END
+            FROM series s,
+                 count_series cs
+        </sql>
+    </changeSet>
+</databaseChangeLog>

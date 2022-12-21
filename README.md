@@ -1,13 +1,21 @@
+# Functionality:
+- ### you have CRUD operations for Discount cards and Products
+- ### you can generate cheque using the following URL:
+> http://localhost:8080/cheque?[arguments]
+## Arguments template:
+> productId=quantity&productId=quantity...&card=17
+
+
 # Before running the application, you should know: 
-- ### there are 51 discount cards, their numbers are from 1000 to 1050
+- ### there are 100 discount cards, their IDs are from 1 to 100
 - ### there are 10 items, their IDs are from 1 to 10
-- ### arguments should be written to arguments.txt file in root
-- ### cheques will be stored in cheque.txt file (in case of absence will be created automatically)
 
-## In order to compile the application you should run the following command:
+## In order to build the jar you should run the following command:
 
->javac -sourcepath ./src -d bin src/main/java/by/clevertec/cheque/*.java
+>./gradlew clean build -x test
 
 ## In order to run application you should run the following command:
 
->java -classpath ./bin by.clevertec.cheque.ChequeRunner
+>docker-compose up
+
+## To run tests: Gradle -> verification -> test
