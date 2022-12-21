@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="3" author="andrei.yurueu1@gmail.com" context="test_data">
+        <comment>Fill the table "products" with test data</comment>
+        <sql>
+            INSERT INTO products(name, price, on_sale)
+            values ('Eggs', 2.32, true),
+                   ('Milk', 1.73, true),
+                   ('Butter', 3.17, false),
+                   ('Cheese', 2.95, false),
+                   ('Bread', 1.46, true),
+                   ('Onion', 4.61, false),
+                   ('Tomato', 3.52, false),
+                   ('Potato', 0.94, false),
+                   ('Salt', 1.09, false),
+                   ('Sugar', 2.09, false)
+        </sql>
+    </changeSet>
+</databaseChangeLog>
