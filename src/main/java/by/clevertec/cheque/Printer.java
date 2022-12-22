@@ -29,20 +29,20 @@ public class Printer {
 
     public void printItem(int quantity, String itemName, float price) {
         fileManager.writeItemToFile(
-        "\t" + quantity + "\t\t"
-                + itemName + "\t\t\t\t\t"
-                + price + "$\t\t"
-                + String.format("%.2f$\n", quantity * price));
+                "\t" + quantity + "\t\t"
+                        + itemName + "\t\t\t\t\t"
+                        + price + "$\t\t"
+                        + String.format("%.2f$\n", quantity * price));
     }
 
     public void printFooter(float total, float discount) {
         List<String> footer = List.of(
-        "----------------------------------------------------------------------------------------",
-        "\tTOTAL:\t\t\t\t\t\t" + String.format("%.2f$", total),
-        "\tDISCOUNT:\t\t\t\t\t" + String.format("%.2f$", discount),
-        "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
-        "\tTOTAL WITH DISCOUNT:\t\t" + String.format("%.2f$", total - discount),
-        "----------------------------------------------------------------------------------------"
+                "----------------------------------------------------------------------------------------",
+                "\tTOTAL:\t\t\t\t\t\t" + String.format("%.2f$", total),
+                "\tDISCOUNT:\t\t\t\t\t" + String.format("%.2f$", discount),
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+                "\tTOTAL WITH DISCOUNT:\t\t" + String.format("%.2f$", total - discount),
+                "----------------------------------------------------------------------------------------"
         );
         fileManager.writeChequeToFile(footer);
     }

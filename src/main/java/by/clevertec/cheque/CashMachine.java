@@ -20,7 +20,6 @@ public class CashMachine {
                 if (hasCard && i == args.length - 1) {
                     break;
                 }
-
                 String[] idWithQuantity = args[i].split("-");
                 Long id = Long.valueOf(idWithQuantity[0]);
                 Float price = dataStorage.getPriceList().get(id);
