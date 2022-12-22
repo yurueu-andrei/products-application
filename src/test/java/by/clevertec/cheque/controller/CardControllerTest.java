@@ -1,5 +1,7 @@
 package by.clevertec.cheque.controller;
 
+import by.clevertec.cheque.dto.CardDto;
+import by.clevertec.cheque.dto.CardSaveDto;
 import by.clevertec.cheque.model.entity.DiscountCard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -48,7 +50,7 @@ public class CardControllerTest {
     }
 
     @Test
-    public void findByIdTest_shouldReturnCard() throws Exception {
+    public void findByIdTest_shouldReturnCardDto() throws Exception {
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/cards/13"))
                 .andExpect(jsonPath("$.id").value(13))
@@ -61,7 +63,7 @@ public class CardControllerTest {
     }
 
     @Test
-    public void findAllTest_shouldReturnCards() throws Exception {
+    public void findAllTest_shouldReturnCardDtos() throws Exception {
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/cards"))
                 .andExpect(jsonPath("$").isArray())
@@ -77,16 +79,9 @@ public class CardControllerTest {
     }
 
     @Test
-    public void addTest_shouldReturnCardWithId() throws Exception {
-        //given
-        DiscountCard cardWithoutId = new DiscountCard();
-        cardWithoutId.setDiscount(100);
-        ObjectMapper mapper = new ObjectMapper();
-
+    public void addTest_shouldReturnCardDtoWithId() throws Exception {
         //when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/cards")
-                        .content(mapper.writeValueAsString(cardWithoutId))
-                        .contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/cards?discountValue=100"))
                 .andExpect(jsonPath("$.id").value(101))
                 .andExpect(jsonPath("$.discount").value(100))
                 .andExpect(status().isOk())
@@ -97,18 +92,16 @@ public class CardControllerTest {
     }
 
     @Test
-    public void updateTest_shouldReturnUpdatedCard() throws Exception {
+    public void updateTest_shouldReturnTrue() throws Exception {
         //given
         ObjectMapper mapper = new ObjectMapper();
-
-        DiscountCard card = new DiscountCard(17L, 15);
+        CardDto card = new CardDto(17L, 15);
 
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/cards")
                         .content(mapper.writeValueAsString(card))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(17))
-                .andExpect(jsonPath("$.discount").value(15))
+                .andExpect(jsonPath("$").value(true))
                 .andExpect(status().isOk())
                 .andReturn();
 

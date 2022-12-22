@@ -1,5 +1,7 @@
 package by.clevertec.cheque.controller;
 
+import by.clevertec.cheque.dto.CardDto;
+import by.clevertec.cheque.dto.CardSaveDto;
 import by.clevertec.cheque.model.entity.DiscountCard;
 import by.clevertec.cheque.service.CardService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,32 +25,31 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping("/{id}")
-    public DiscountCard findById(@PathVariable Long id) throws ServiceException {
+    public CardDto findById(@PathVariable Long id) {
         return cardService.findById(id);
     }
 
     @GetMapping
-    public List<DiscountCard> findAll() throws ServiceException {
+    public List<CardDto> findAll() {
         return cardService.findAll();
     }
 
     @PostMapping
-    public DiscountCard add(
-            @RequestBody DiscountCard card
-    ) throws ServiceException {
-        return cardService.add(card);
+    public CardDto add(
+            @RequestParam int discountValue
+    ) {
+        return cardService.add(discountValue);
     }
 
     @PutMapping
-    public DiscountCard update(
-            @RequestBody DiscountCard card
-    ) throws ServiceException {
-        cardService.update(card);
-        return card;
+    public boolean update(
+            @RequestBody CardDto card
+    ) {
+        return cardService.update(card);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) throws ServiceException {
+    public boolean delete(@PathVariable Long id) {
         return cardService.delete(id);
     }
 }

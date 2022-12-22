@@ -1,5 +1,8 @@
 package by.clevertec.cheque.service;
 
+import by.clevertec.cheque.dto.CardDto;
+import by.clevertec.cheque.dto.CardSaveDto;
+import by.clevertec.cheque.mapper.CardMapper;
 import by.clevertec.cheque.model.entity.DiscountCard;
 import by.clevertec.cheque.repository.CardRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,46 +16,50 @@ import java.util.List;
 @Service
 public class CardService {
     private final CardRepository cardRepository;
+    private final CardMapper cardMapper;
 
-    public DiscountCard findById(Long id) throws ServiceException {
-        return cardRepository.findById(id)
+    public CardDto findById(Long id) throws ServiceException {
+        return cardRepository.findById(id).map(cardMapper::toDto)
                 .orElseThrow(() -> new ServiceException(String.format("The card was not found. id = %d", id)));
     }
 
     @Transactional(readOnly = true)
-    public List<DiscountCard> findAll() throws ServiceException {
+    public List<CardDto> findAll() throws ServiceException {
         try {
-            return cardRepository.findAll();
+            return cardMapper.toDto(cardRepository.findAll());
         } catch (Exception ex) {
             throw new ServiceException("The cards were not found", ex);
         }
     }
 
     @Transactional
-    public DiscountCard add(DiscountCard discountCard) throws ServiceException {
+    public CardDto add(int discount) throws ServiceException {
         try {
-            return cardRepository.save(discountCard);
+            DiscountCard card = new DiscountCard();
+            card.setDiscount(discount);
+            return cardMapper.toDto(cardRepository.save(card));
         } catch (Exception ex) {
-            throw new ServiceException(String.format("The card was not saved. %s", discountCard), ex);
+            throw new ServiceException(String.format("The card was not saved. Discount value: %s", discount), ex);
         }
     }
 
     @Transactional
-    public boolean update(DiscountCard discountCard) throws ServiceException {
-        DiscountCard foundDiscountCard = cardRepository.findById(discountCard.getId())
+    public boolean update(CardDto cardDto) throws ServiceException {
+        DiscountCard foundDiscountCard = cardRepository.findById(cardDto.getId())
                 .orElseThrow(() ->
                         new ServiceException(
                                 String.format(
                                         "The card was not updated. The card was not found. id = %d",
-                                        discountCard.getId())));
+                                        cardDto.getId())));
         try {
-            if (discountCard.getDiscount() != null) {
-                foundDiscountCard.setDiscount(discountCard.getDiscount());
+            if (cardDto.getDiscount() != null) {
+                foundDiscountCard.setDiscount(cardDto.getDiscount());
             }
+
             cardRepository.flush();
             return true;
         } catch (Exception ex) {
-            throw new ServiceException(String.format("The card was not updated. %s", discountCard), ex);
+            throw new ServiceException(String.format("The card was not updated. %s", cardDto), ex);
         }
     }
 

@@ -1,5 +1,8 @@
 package by.clevertec.cheque.service;
 
+import by.clevertec.cheque.dto.ProductDto;
+import by.clevertec.cheque.dto.ProductSaveDto;
+import by.clevertec.cheque.mapper.ProductMapper;
 import by.clevertec.cheque.model.entity.Product;
 import by.clevertec.cheque.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,52 +16,54 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
-    public Product findById(Long id) throws ServiceException {
-        return productRepository.findById(id)
+    public ProductDto findById(Long id) throws ServiceException {
+        return productRepository.findById(id).map(productMapper::toDto)
                 .orElseThrow(() -> new ServiceException(String.format("The item was not found. id = %d", id)));
     }
 
     @Transactional(readOnly = true)
-    public List<Product> findAll() throws ServiceException {
+    public List<ProductDto> findAll() throws ServiceException {
         try {
-            return productRepository.findAll();
+            return productMapper.toDto(productRepository.findAll());
         } catch (Exception ex) {
             throw new ServiceException("The items were not found", ex);
         }
     }
 
     @Transactional
-    public Product add(Product product) throws ServiceException {
+    public ProductDto add(ProductSaveDto productSaveDto) throws ServiceException {
         try {
-            return productRepository.save(product);
+            Product product = productMapper.fromSaveDto(productSaveDto);
+            return productMapper.toDto(productRepository.save(product));
         } catch (Exception ex) {
-            throw new ServiceException(String.format("The item was not saved. %s", product), ex);
+            throw new ServiceException(String.format("The item was not saved. %s", productSaveDto), ex);
         }
     }
 
     @Transactional
-    public boolean update(Product product) throws ServiceException {
-        Product foundProduct = productRepository.findById(product.getId())
+    public boolean update(ProductDto productDto) throws ServiceException {
+        Product foundProduct = productRepository.findById(productDto.getId())
                 .orElseThrow(() ->
                         new ServiceException(
                                 String.format(
                                         "The item was not updated. The item was not found. id = %d",
-                                        product.getId())));
+                                        productDto.getId())));
         try {
-            settingUpdatedFields(product, foundProduct);
+            settingUpdatedFields(productDto, foundProduct);
             productRepository.flush();
             return true;
         } catch (Exception ex) {
-            throw new ServiceException(String.format("The item was not updated. %s", product), ex);
+            throw new ServiceException(String.format("The item was not updated. %s", productDto), ex);
         }
     }
 
-    private void settingUpdatedFields(Product product, Product foundProduct) {
-        if (product.getName() != null) {
-            foundProduct.setName(product.getName());
+    private void settingUpdatedFields(ProductDto productDto, Product foundProduct) {
+        if (productDto.getName() != null) {
+            foundProduct.setName(productDto.getName());
         }
-        if (product.isOnSale() != foundProduct.isOnSale()) {
+        if (productDto.isOnSale() != foundProduct.isOnSale()) {
             foundProduct.setOnSale(!foundProduct.isOnSale());
         }
     }

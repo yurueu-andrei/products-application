@@ -1,5 +1,7 @@
 package by.clevertec.cheque.controller;
 
+import by.clevertec.cheque.dto.ProductDto;
+import by.clevertec.cheque.dto.ProductSaveDto;
 import by.clevertec.cheque.model.entity.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -48,7 +50,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void findByIdTest_shouldReturnProduct() throws Exception {
+    public void findByIdTest_shouldReturnProductDto() throws Exception {
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/products/5"))
                 .andExpect(jsonPath("$.id").value(5))
@@ -63,7 +65,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void findAllTest_shouldReturnProducts() throws Exception {
+    public void findAllTest_shouldReturnProductDtos() throws Exception {
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/products"))
                 .andExpect(jsonPath("$").isArray())
@@ -79,12 +81,9 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void addTest_shouldReturnProductWithId() throws Exception {
+    public void addTest_shouldReturnProductDtoWithId() throws Exception {
         //given
-        Product productWithoutId = new Product();
-        productWithoutId.setName("Apple");
-        productWithoutId.setPrice(3.02f);
-        productWithoutId.setOnSale(false);
+        ProductSaveDto productWithoutId = new ProductSaveDto("Apple", 3.02f, false);
         ObjectMapper mapper = new ObjectMapper();
 
         //when
@@ -103,20 +102,17 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void updateTest_shouldReturnUpdatedProduct() throws Exception {
+    public void updateTest_shouldReturnTrue() throws Exception {
         //given
         ObjectMapper mapper = new ObjectMapper();
 
-        Product product = new Product(9L, "Test", 1.11f, false);
+        ProductDto product = new ProductDto(9L, "Test", 1.11f, false);
 
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/products")
                         .content(mapper.writeValueAsString(product))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(9))
-                .andExpect(jsonPath("$.name").value("Test"))
-                .andExpect(jsonPath("$.price").value(1.11))
-                .andExpect(jsonPath("$.onSale").value(false))
+                .andExpect(jsonPath("$").value(true))
                 .andExpect(status().isOk())
                 .andReturn();
 

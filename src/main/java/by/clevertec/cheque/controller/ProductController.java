@@ -1,5 +1,7 @@
 package by.clevertec.cheque.controller;
 
+import by.clevertec.cheque.dto.ProductDto;
+import by.clevertec.cheque.dto.ProductSaveDto;
 import by.clevertec.cheque.model.entity.Product;
 import by.clevertec.cheque.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -22,28 +24,27 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable Long id) throws ServiceException {
+    public ProductDto findById(@PathVariable Long id) throws ServiceException {
         return productService.findById(id);
     }
 
     @GetMapping
-    public List<Product> findAll() throws ServiceException {
+    public List<ProductDto> findAll() throws ServiceException {
         return productService.findAll();
     }
 
     @PostMapping
-    public Product add(
-            @RequestBody Product product
+    public ProductDto add(
+            @RequestBody ProductSaveDto product
     ) throws ServiceException {
         return productService.add(product);
     }
 
     @PutMapping
-    public Product update(
-            @RequestBody Product product
+    public boolean update(
+            @RequestBody ProductDto product
     ) throws ServiceException {
-        productService.update(product);
-        return product;
+        return productService.update(product);
     }
 
     @DeleteMapping("/{id}")
