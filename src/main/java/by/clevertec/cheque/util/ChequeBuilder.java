@@ -1,5 +1,7 @@
 package by.clevertec.cheque.util;
 
+import by.clevertec.cheque.dto.CardDto;
+import by.clevertec.cheque.dto.ProductDto;
 import by.clevertec.cheque.model.Cheque;
 import by.clevertec.cheque.model.ChequeItem;
 import by.clevertec.cheque.model.entity.DiscountCard;
@@ -39,7 +41,7 @@ public class ChequeBuilder {
     private void fillItems(Cheque cheque, Map<String, String> requestParams) {
         for (String key : requestParams.keySet()) {
             if (!key.equals("card")) {
-                Product product = productService.findById(Long.valueOf(key));
+                ProductDto product = productService.findById(Long.valueOf(key));
                 int quantity = Integer.parseInt(requestParams.get(key));
                 float totalForItem = Integer.parseInt(requestParams.get(key)) * product.getPrice();
 
@@ -61,7 +63,7 @@ public class ChequeBuilder {
     private float findCardDiscount(Map<String, String> requestParams) {
         for (String key : requestParams.keySet()) {
             if (key.equals("card")) {
-                DiscountCard card = cardService.findById(Long.valueOf(requestParams.get(key)));
+                CardDto card = cardService.findById(Long.valueOf(requestParams.get(key)));
                 return card.getDiscount();
             }
         }
