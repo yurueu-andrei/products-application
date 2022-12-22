@@ -31,8 +31,7 @@ public class FileManager {
     }
 
     public void writeItemToFile(String string) {
-        try {
-            OutputStream outputStream = new FileOutputStream("cheque.txt", true);
+        try (OutputStream outputStream = new FileOutputStream("cheque.txt", true)) {
             outputStream.write((string + "\n").getBytes());
         } catch (IOException e) {
             System.out.println("Cannot write line to file");
