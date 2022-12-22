@@ -1,6 +1,5 @@
 package by.clevertec.cheque.controller;
 
-import by.clevertec.cheque.model.entity.DiscountCard;
 import by.clevertec.cheque.model.entity.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
