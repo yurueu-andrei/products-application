@@ -1,4 +1,4 @@
-package by.clevertec.cheque.dto;
+package ru.clevertec.cheque.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

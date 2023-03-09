@@ -1,4 +1,4 @@
-package by.clevertec.cheque;
+package ru.clevertec.cheque;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

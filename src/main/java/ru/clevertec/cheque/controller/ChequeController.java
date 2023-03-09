@@ -1,7 +1,7 @@
-package by.clevertec.cheque.controller;
+package ru.clevertec.cheque.controller;
 
-import by.clevertec.cheque.model.Cheque;
-import by.clevertec.cheque.util.ChequeBuilder;
+import ru.clevertec.cheque.model.Cheque;
+import ru.clevertec.cheque.service.ChequeBuilder;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.web.bind.annotation.GetMapping;

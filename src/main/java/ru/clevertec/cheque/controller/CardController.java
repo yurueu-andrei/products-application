@@ -1,11 +1,8 @@
-package by.clevertec.cheque.controller;
+package ru.clevertec.cheque.controller;
 
-import by.clevertec.cheque.dto.CardDto;
-import by.clevertec.cheque.dto.CardSaveDto;
-import by.clevertec.cheque.model.entity.DiscountCard;
-import by.clevertec.cheque.service.CardService;
+import ru.clevertec.cheque.dto.CardDto;
+import ru.clevertec.cheque.service.CardService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
