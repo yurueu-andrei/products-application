@@ -20,6 +20,6 @@ services:
     volumes:
       - ./:/usr/src/myapp
     working_dir: /usr/src/myapp
-    command: sh -c "java -jar ./build/libs/clevertech-test-task-7.5.jar"
+    command: sh -c "java -jar ./build/libs/products-application-1.0.jar"
     ports:
       - "8080:8080"

@@ -1,8 +1,6 @@
-package by.clevertec.cheque.controller;
+package ru.clevertec.cheque.controller;
 
-import by.clevertec.cheque.dto.ProductDto;
-import by.clevertec.cheque.dto.ProductSaveDto;
-import by.clevertec.cheque.model.entity.Product;
+import ru.clevertec.cheque.dto.CardDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,9 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Testcontainers
-@ContextConfiguration(initializers = {ProductControllerTest.Initializer.class})
+@ContextConfiguration(initializers = {CardControllerTest.Initializer.class})
 @AutoConfigureMockMvc
-public class ProductControllerTest {
+public class CardControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
@@ -50,13 +48,11 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void findByIdTest_shouldReturnProductDto() throws Exception {
+    public void findByIdTest_shouldReturnCardDto() throws Exception {
         //when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/products/5"))
-                .andExpect(jsonPath("$.id").value(5))
-                .andExpect(jsonPath("$.name").value("Bread"))
-                .andExpect(jsonPath("$.price").value(1.46))
-                .andExpect(jsonPath("$.onSale").value(true))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/cards/13"))
+                .andExpect(jsonPath("$.id").value(13))
+                .andExpect(jsonPath("$.discount").value(10))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -65,14 +61,14 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void findAllTest_shouldReturnProductDtos() throws Exception {
+    public void findAllTest_shouldReturnCardDtos() throws Exception {
         //when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/products"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/cards"))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[2].id").value(3))
-                .andExpect(jsonPath("$[9]").exists())
+                .andExpect(jsonPath("$[99]").exists())
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -81,19 +77,11 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void addTest_shouldReturnProductDtoWithId() throws Exception {
-        //given
-        ProductSaveDto productWithoutId = new ProductSaveDto("Apple", 3.02f, false);
-        ObjectMapper mapper = new ObjectMapper();
-
+    public void addTest_shouldReturnCardDtoWithId() throws Exception {
         //when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/products")
-                        .content(mapper.writeValueAsString(productWithoutId))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(11))
-                .andExpect(jsonPath("$.name").value("Apple"))
-                .andExpect(jsonPath("$.price").value(3.02))
-                .andExpect(jsonPath("$.onSale").value(false))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/cards?discountValue=100"))
+                .andExpect(jsonPath("$.id").value(101))
+                .andExpect(jsonPath("$.discount").value(100))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -105,12 +93,11 @@ public class ProductControllerTest {
     public void updateTest_shouldReturnTrue() throws Exception {
         //given
         ObjectMapper mapper = new ObjectMapper();
-
-        ProductDto product = new ProductDto(9L, "Test", 1.11f, false);
+        CardDto card = new CardDto(17L, 15);
 
         //when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/products")
-                        .content(mapper.writeValueAsString(product))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/cards")
+                        .content(mapper.writeValueAsString(card))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$").value(true))
                 .andExpect(status().isOk())
@@ -123,7 +110,7 @@ public class ProductControllerTest {
     @Test
     public void deleteTest_shouldReturnTrue() throws Exception {
         //when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/products/10"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/cards/3"))
                 .andExpect(jsonPath("$").value(true))
                 .andExpect(status().isOk())
                 .andReturn();
