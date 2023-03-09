@@ -1,11 +1,11 @@
-package by.clevertec.cheque.controller;
+package ru.clevertec.cheque.controller;
 
-import by.clevertec.cheque.dto.ProductDto;
-import by.clevertec.cheque.dto.ProductSaveDto;
-import by.clevertec.cheque.model.entity.Product;
-import by.clevertec.cheque.service.ProductService;
+import ru.clevertec.cheque.dto.ProductDto;
+import ru.clevertec.cheque.dto.ProductSaveDto;
+import ru.clevertec.cheque.service.ProductService;
+import ru.clevertec.cheque.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.service.spi.ServiceException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/products")
@@ -35,14 +37,14 @@ public class ProductController {
 
     @PostMapping
     public ProductDto add(
-            @RequestBody ProductSaveDto product
+            @Valid @RequestBody ProductSaveDto product
     ) throws ServiceException {
         return productService.add(product);
     }
 
     @PutMapping
     public boolean update(
-            @RequestBody ProductDto product
+            @Valid @RequestBody ProductDto product
     ) throws ServiceException {
         return productService.update(product);
     }
