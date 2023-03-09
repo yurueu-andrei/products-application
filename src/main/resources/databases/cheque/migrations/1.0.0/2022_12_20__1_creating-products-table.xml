@@ -20,6 +20,10 @@
             <column name="on_sale" type="boolean">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="barcode" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
