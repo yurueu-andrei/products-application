@@ -5,17 +5,17 @@
     <changeSet id="3" author="andrei.yurueu1@gmail.com" context="test_data">
         <comment>Fill the table "products" with test data</comment>
         <sql>
-            INSERT INTO products(name, price, on_sale)
-            values ('Eggs', 2.32, true),
-                   ('Milk', 1.73, true),
-                   ('Butter', 3.17, false),
-                   ('Cheese', 2.95, false),
-                   ('Bread', 1.46, true),
-                   ('Onion', 4.61, false),
-                   ('Tomato', 3.52, false),
-                   ('Potato', 0.94, false),
-                   ('Salt', 1.09, false),
-                   ('Sugar', 2.09, false)
+            INSERT INTO products(name, price, on_sale, barcode)
+            values ('Eggs', 2.32, true, '268AFI77JJ'),
+                   ('Milk', 1.73, true, '595YNS52YU'),
+                   ('Butter', 3.17, false, '853YHU65ЕН'),
+                   ('Cheese', 2.95, false, '176PVF75GL'),
+                   ('Bread', 1.46, true, '894RWE23WP'),
+                   ('Onion', 4.61, false, '634KOG85MB'),
+                   ('Tomato', 3.52, false, '798ZDV23HZ'),
+                   ('Potato', 0.94, false, '156WEP64GG'),
+                   ('Salt', 1.09, false, '579LST26HF'),
+                   ('Sugar', 2.09, false, '890VFN98IO')
         </sql>
     </changeSet>
 </databaseChangeLog>
