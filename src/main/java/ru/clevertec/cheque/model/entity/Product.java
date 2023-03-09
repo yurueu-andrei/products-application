@@ -1,6 +1,8 @@
-package by.clevertec.cheque.model.entity;
+package ru.clevertec.cheque.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,4 +29,7 @@ public class Product {
 
     @Column(name = "on_sale")
     private boolean onSale;
+
+    @Column(name = "barcode")
+    private String barcode;
 }
