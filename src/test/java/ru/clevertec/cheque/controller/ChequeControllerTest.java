@@ -1,4 +1,4 @@
-package by.clevertec.cheque.controller;
+package ru.clevertec.cheque.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
