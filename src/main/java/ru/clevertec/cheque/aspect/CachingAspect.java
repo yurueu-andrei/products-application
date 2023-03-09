@@ -47,12 +47,10 @@ public class CachingAspect {
             Long argument = (Long) proceedingJoinPoint.getArgs()[0];
             Object cachedObject = cache.get(argument);
             if (cachedObject != null) {
-                System.out.println(cache);
                 return Optional.of(cachedObject);
             } else {
                 Optional<?> retVal = (Optional<?>) proceedingJoinPoint.proceed();
                 retVal.ifPresent(value -> cache.set(argument, value));
-                System.out.println(cache);
                 return retVal;
             }
         }
@@ -90,7 +88,6 @@ public class CachingAspect {
             Long entityId = findEntityId(retVal);
             cache.set(entityId, retVal);
         }
-        System.out.println(cache);
 
         return proceedingJoinPoint.proceed();
     }
@@ -108,7 +105,6 @@ public class CachingAspect {
                 proceedingJoinPoint.proceed();
                 cache.delete(id);
             }
-            System.out.println(cache);
         }
     }
 
