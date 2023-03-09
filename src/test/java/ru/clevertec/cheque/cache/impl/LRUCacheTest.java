@@ -1,9 +1,9 @@
 package ru.clevertec.cheque.cache.impl;
 
-import ru.clevertec.cheque.model.entity.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.clevertec.cheque.model.entity.Product;
 
 import java.util.List;
 

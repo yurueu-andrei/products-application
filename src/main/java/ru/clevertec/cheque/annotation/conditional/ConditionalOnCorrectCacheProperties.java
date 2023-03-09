@@ -1,7 +1,7 @@
 package ru.clevertec.cheque.annotation.conditional;
 
-import ru.clevertec.cheque.annotation.conditional.condition.OnCorrectCacheProperties;
 import org.springframework.context.annotation.Conditional;
+import ru.clevertec.cheque.annotation.conditional.condition.OnCorrectCacheProperties;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

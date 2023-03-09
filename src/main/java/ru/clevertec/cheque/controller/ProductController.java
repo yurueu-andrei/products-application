@@ -1,9 +1,5 @@
 package ru.clevertec.cheque.controller;
 
-import ru.clevertec.cheque.dto.ProductDto;
-import ru.clevertec.cheque.dto.ProductSaveDto;
-import ru.clevertec.cheque.service.ProductService;
-import ru.clevertec.cheque.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.clevertec.cheque.dto.ProductDto;
+import ru.clevertec.cheque.dto.ProductSaveDto;
+import ru.clevertec.cheque.exception.ServiceException;
+import ru.clevertec.cheque.service.ProductService;
 
 import javax.validation.Valid;
 import java.util.List;

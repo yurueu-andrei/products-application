@@ -1,9 +1,9 @@
 package ru.clevertec.cheque.cache.factory;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.clevertec.cheque.cache.Cache;
 import ru.clevertec.cheque.cache.impl.LFUCache;
 import ru.clevertec.cheque.cache.impl.LRUCache;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CacheFactory {

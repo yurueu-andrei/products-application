@@ -12,8 +12,10 @@ public class OnCorrectCacheProperties extends AnyNestedCondition {
     }
 
     @ConditionalOnProperty(prefix = "cache", name = "algorithm", havingValue = "LRU")
-    static class ConditionForLruCache {}
+    static class ConditionForLruCache {
+    }
 
     @ConditionalOnProperty(prefix = "cache", name = "algorithm", havingValue = "LFU")
-    static class ConditionForLfuCache {}
+    static class ConditionForLfuCache {
+    }
 }

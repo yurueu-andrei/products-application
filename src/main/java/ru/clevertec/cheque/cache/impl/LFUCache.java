@@ -1,8 +1,8 @@
 package ru.clevertec.cheque.cache.impl;
 
-import ru.clevertec.cheque.cache.Cache;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import ru.clevertec.cheque.cache.Cache;
 
 import java.util.HashMap;
 import java.util.List;

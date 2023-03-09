@@ -1,6 +1,5 @@
 package ru.clevertec.cheque.controller;
 
-import ru.clevertec.cheque.exception.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import ru.clevertec.cheque.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
